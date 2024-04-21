@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments :: html_head">
+    <title>Skillhunt - Free Bootstrap 4 Template by Colorlib</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+
+<nav th:replace="fragments :: header_menu"
+     class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+
+</nav>
+
+
+<!-- END nav -->
+<div class="hero-wrap hero-wrap-2" style="background-image: url('resources/images/bg_1.jpg');"
+     data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-start">
+            <div class="col-md-12 text-center mb-5">
+                <p class="breadcrumbs mb-0"><span class="mr-3"><a href="index.html">Trang chủ <i
+                        class="ion-ios-arrow-forward"></i></a></span> đăng nhập<span></span></p>
+                <h1 class="mb-3 bread">Đăng nhập / Đăng kí</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:if="${msg_register_success}" class="toast" data-delay="2500"
+     style="position:fixed; top: 100PX; right: 10PX;z-index: 2000;width: 300px">
+    <script>
+        swal({
+            title: 'Đăng ký thành công!',
+            /* text: 'Redirecting...', */
+            icon: 'success',
+            timer: 3000,
+            buttons: true,
+            type: 'success'
+        })
+    </script>
+</div>
+<div th:if="${msg_register_error}" class="toast" data-delay="2500"
+     style="position:fixed; top: 100PX; right: 10PX;z-index: 2000;width: 300px">
+    <script>
+        swal({
+            title: 'Đăng ký thất bại!',
+            /* text: 'Redirecting...', */
+            icon: 'error',
+            timer: 3000,
+            buttons: true,
+            type: 'error'
+        })
+    </script>
+</div>
+
+<!-- HOME -->
+<section class="section-hero overlay inner-page bg-image" style="background-image: url('resources/images/hero_1.jpg');"
+         id="home-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h1 class="text-white font-weight-bold">Đăng kí / đăng nhập</h1>
+                <div class="custom-breadcrumbs">
+                    <a th:href="@{/}">Trang chủ</a> <span class="mx-2 slash">/</span>
+                    <span class="text-white"><strong>Đăng nhập</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-5">
+                <h2 class="mb-4">Đăng kí</h2>
+                <form action="#" th:action="@{/register}" th:object="${register}" method="post"
+                      class="p-4 border rounded">
+                    <div class="row form-group">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="fEmail">Email</label>
+                            <input type="email" id="fEmail" class="form-control" placeholder="Email"
+                                   th:field="*{email}"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="fname">Họ và tên</label>
+                            <input type="text" id="fname" class="form-control" placeholder="Họ và tên"
+                                   th:field="*{fullName}"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="fPassword">Mật khẩu</label>
+                            <input type="password" id="fPassword" class="form-control" placeholder="Mật khẩu"
+                                   th:field="*{password}"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="row form-group mb-4">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="fCFPassword">Nhập lại mật khẩu</label>
+                            <input type="password" id="fCFPassword" class="form-control"
+                                   th:field="*{confirmPassword}"
+                                   placeholder="Nhập lại mật khẩu" required>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="fRole">Vai trò</label>
+                            <select class="form-control" id="fRole" aria-label="Default select example" required
+                                    name="role">
+                                <option selected>Chọn vai trò</option>
+                                <option value="1">Ứng cử viên</option>
+                                <option value="2">Công ty</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <input type="submit" value="Đăng kí" class="btn px-4 btn-primary text-white">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="mb-4">Đăng nhập</h2>
+                <form action="login" method="post" class="p-4 border rounded">
+
+                    <div class="row form-group">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="fEmailLogin">Email</label>
+                            <input type="email" id="fEmailLogin" name="email" class="form-control" placeholder="Email"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="row form-group mb-4">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="fPassLogin">Mật khẩu</label>
+                            <input type="password" id="fPassLogin" name="password" class="form-control"
+                                   placeholder="Mật khẩu" required>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <input type="submit" value="Đăng nhập" class="btn px-4 btn-primary text-white">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer th:replace="fragments :: footer" class="ftco-footer ftco-bg-dark ftco-section">
+
+</footer>
+
+</body>
+</html>
