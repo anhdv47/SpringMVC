@@ -8,7 +8,6 @@
 
 <nav th:replace="fragments :: header_menu"
      class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-
 </nav>
 
 
@@ -27,32 +26,6 @@
     </div>
 </div>
 
-<div th:if="${msg_register_success}" class="toast" data-delay="2500"
-     style="position:fixed; top: 100PX; right: 10PX;z-index: 2000;width: 300px">
-    <script>
-        swal({
-            title: 'Đăng ký thành công!',
-            /* text: 'Redirecting...', */
-            icon: 'success',
-            timer: 3000,
-            buttons: true,
-            type: 'success'
-        })
-    </script>
-</div>
-<div th:if="${msg_register_error}" class="toast" data-delay="2500"
-     style="position:fixed; top: 100PX; right: 10PX;z-index: 2000;width: 300px">
-    <script>
-        swal({
-            title: 'Đăng ký thất bại!',
-            /* text: 'Redirecting...', */
-            icon: 'error',
-            timer: 3000,
-            buttons: true,
-            type: 'error'
-        })
-    </script>
-</div>
 
 <!-- HOME -->
 <section class="section-hero overlay inner-page bg-image" style="background-image: url('resources/images/hero_1.jpg');"
@@ -75,13 +48,15 @@
         <div class="row">
             <div class="col-lg-6 mb-5">
                 <h2 class="mb-4">Đăng kí</h2>
-                <form action="#" th:action="@{/register}" th:object="${register}" method="post"
+                <form action="#" th:action="@{/register}" th:object="${register}" method="post" id="registerForm"
+                      autocomplete="off"
                       class="p-4 border rounded">
                     <div class="row form-group">
                         <div class="col-md-12 mb-3 mb-md-0">
                             <label class="text-black" for="fEmail">Email</label>
                             <input type="email" id="fEmail" class="form-control" placeholder="Email"
                                    th:field="*{email}"
+                                   autocomplete="off"
                                    required>
                         </div>
                     </div>
@@ -90,6 +65,7 @@
                             <label class="text-black" for="fname">Họ và tên</label>
                             <input type="text" id="fname" class="form-control" placeholder="Họ và tên"
                                    th:field="*{fullName}"
+                                   autocomplete="off"
                                    required>
                         </div>
                     </div>
@@ -98,6 +74,7 @@
                             <label class="text-black" for="fPassword">Mật khẩu</label>
                             <input type="password" id="fPassword" class="form-control" placeholder="Mật khẩu"
                                    th:field="*{password}"
+                                   autocomplete="off"
                                    required>
                         </div>
                     </div>
@@ -106,15 +83,15 @@
                             <label class="text-black" for="fCFPassword">Nhập lại mật khẩu</label>
                             <input type="password" id="fCFPassword" class="form-control"
                                    th:field="*{confirmPassword}"
+                                   autocomplete="off"
                                    placeholder="Nhập lại mật khẩu" required>
                         </div>
                     </div>
                     <div class="row form-group">
                         <div class="col-md-12 mb-3 mb-md-0">
                             <label class="text-black" for="fRole">Vai trò</label>
-                            <select class="form-control" id="fRole" aria-label="Default select example" required
-                                    name="role">
-                                <option selected>Chọn vai trò</option>
+                            <select class="form-control" id="fRole" aria-label="Default select example" name="role"
+                                    required>
                                 <option value="1">Ứng cử viên</option>
                                 <option value="2">Công ty</option>
                             </select>
@@ -129,12 +106,12 @@
             </div>
             <div class="col-lg-6">
                 <h2 class="mb-4">Đăng nhập</h2>
-                <form action="login" method="post" class="p-4 border rounded">
-
+                <form action="login" method="post" class="p-4 border rounded" autocomplete="off">
                     <div class="row form-group">
                         <div class="col-md-12 mb-3 mb-md-0">
                             <label class="text-black" for="fEmailLogin">Email</label>
                             <input type="email" id="fEmailLogin" name="email" class="form-control" placeholder="Email"
+                                   autocomplete="off"
                                    required>
                         </div>
                     </div>
@@ -142,6 +119,7 @@
                         <div class="col-md-12 mb-3 mb-md-0">
                             <label class="text-black" for="fPassLogin">Mật khẩu</label>
                             <input type="password" id="fPassLogin" name="password" class="form-control"
+                                   autocomplete="off"
                                    placeholder="Mật khẩu" required>
                         </div>
                     </div>
@@ -162,5 +140,23 @@
 
 </footer>
 
+<div th:if="${responseMessage != null && responseMessage.getMessage() != '' }" class="toast" data-delay="2500"
+     style="position:fixed; top: 100PX; right: 10PX;z-index: 2000;width: 300px">
+    <script>
+        let responseMessage = `[[${responseMessage.getMessage()}]]`;
+        let isSuccess = [[${responseMessage.isSuccess()}]];
+        if (isSuccess) {
+            document.getElementById('registerForm').reset();
+        }
+        swal({
+            title: responseMessage,
+            icon: isSuccess ? 'success' : 'error',
+            buttons: true,
+            type: isSuccess ? 'success' : 'error',
+        }).then(function () {
+            if (isSuccess) window.location.href = `${contextpath}/login`;
+        });
+    </script>
+</div>
 </body>
 </html>

@@ -4,45 +4,49 @@
     <title>Work CV</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="context-path" th:content="@{/}"/>
+    <script th:inline="javascript">
+        const contextpath = /*[[@{/}]]*/ "/";
+    </script>
 
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap" rel="stylesheet">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="resources/css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="resources/css/animate.css">
-    <link rel="stylesheet" href="resources/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="resources/css/magnific-popup.css">
-    <link rel="stylesheet" href="resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="resources/css/aos.css">
-    <link rel="stylesheet" href="resources/css/ionicons.min.css">
-    <link rel="stylesheet" href="resources/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="resources/css/jquery.timepicker.css">
-    <link rel="stylesheet" href="resources/css/css/bootstrap-reboot.css">
-    <link rel="stylesheet" href="resources/css/css/mixins/_text-hide.css">
-    <link rel="stylesheet" href="resources/css/flaticon.css">
-    <link rel="stylesheet" href="resources/css/icomoon.css">
-    <link rel="stylesheet" href="resources/css/style.css">
-    <link rel="stylesheet" href="resources/css/bootstrap/bootstrap-grid.css">
-    <link rel="stylesheet" href="resources/css/bootstrap/bootstrap-reboot.css">
+    <link rel="stylesheet" th:href="@{/resources/css/open-iconic-bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/resources/css/animate.css}">
+    <link rel="stylesheet" th:href="@{/resources/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/resources/css/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/resources/css/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/resources/css/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/resources/css/aos.css}">
+    <link rel="stylesheet" th:href="@{/resources/css/ionicons.min.css}">
+    <link rel="stylesheet" th:href="@{/resources/css/bootstrap-datepicker.css}">
+    <link rel="stylesheet" th:href="@{/resources/css/jquery.timepicker.css}">
+    <link rel="stylesheet" th:href="@{/resources/css/css/bootstrap-reboot.css}">
+    <link rel="stylesheet" th:href="@{/resources/css/css/mixins/_text-hide.css}">
+    <link rel="stylesheet" th:href="@{/resources/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/resources/css/icomoon.css}">
+    <link rel="stylesheet" th:href="@{/resources/css/style.css}">
+    <link rel="stylesheet" th:href="@{/resources/css/bootstrap/bootstrap-grid.css}">
+    <link rel="stylesheet" th:href="@{/resources/css/bootstrap/bootstrap-reboot.css}">
 
     <!-- JS -->
-    <script src="resources/js/jquery.min.js"></script>
-    <script src="resources/js/jquery-migrate-3.0.1.min.js"></script>
-    <script src="resources/js/popper.min.js"></script>
-    <script src="resources/js/bootstrap.min.js"></script>
-    <script src="resources/js/jquery.easing.1.3.js"></script>
-    <script src="resources/js/jquery.waypoints.min.js"></script>
-    <script src="resources/js/jquery.stellar.min.js"></script>
-    <script src="resources/js/owl.carousel.min.js"></script>
-    <script src="resources/js/jquery.magnific-popup.min.js"></script>
-    <script src="resources/js/aos.js"></script>
-    <script src="resources/js/jquery.animateNumber.min.js"></script>
-    <script src="resources/js/scrollax.min.js"></script>
+    <script th:src="@{/resources/js/jquery.min.js}"></script>
+    <script th:src="@{/resources/js/jquery-migrate-3.0.1.min.js}"></script>
+    <script th:src="@{/resources/js/popper.min.js}"></script>
+    <script th:src="@{/resources/js/bootstrap.min.js}"></script>
+    <script th:src="@{/resources/js/jquery.easing.1.3.js}"></script>
+    <script th:src="@{/resources/js/jquery.waypoints.min.js}"></script>
+    <script th:src="@{/resources/js/jquery.stellar.min.js}"></script>
+    <script th:src="@{/resources/js/owl.carousel.min.js}"></script>
+    <script th:src="@{/resources/js/jquery.magnific-popup.min.js}"></script>
+    <script th:src="@{/resources/js/aos.js}"></script>
+    <script th:src="@{/resources/js/jquery.animateNumber.min.js}"></script>
+    <script th:src="@{/resources/js/scrollax.min.js}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-    <script src="resources/js/google-map.js"></script>
-    <script src="resources/js/main.js"></script>
+    <script th:src="@{/resources/js/google-map.js}"></script>
+    <script th:src="@{/resources/js/main.js}"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
@@ -62,10 +66,6 @@
                 <li class="nav-item active"><a th:href="@{/}" class="nav-link">Trang chủ</a></li>
                 <li class="nav-item"><a th:href="@{/}" class="nav-link">Công việc</a></li>
                 <li class="nav-item"><a th:href="@{/}" class="nav-link">Ứng cử viên</a></li>
-                <!--        <li class="nav-item"><a href="blog.html" class="nav-link">Công ty</a></li>-->
-                <!--
-                        <li th:if="${session.user}" class="nav-item"><a th:href="@{'/user/profile/'+${session.user.id}}" th:text="${session.user.fullName}" class="nav-link" ></a> -->
-
                 <ul class="dropdown">
                     <li><a th:href="@{/}">Hồ Sơ</a></li>
                     <!--            <li><a href="service-single.html">Đổi mật khẩu</a></li>-->
@@ -74,11 +74,21 @@
                     <li><a th:href="@{/user/get-list-apply}">Công việc đã ứng tuyển</a></li>
                     <li><a th:href="@{/user/get-list-company}">Công ty đã theo dõi</a></li>
                     <!--            <li th:if="${session.user.role.id == 2}"><a th:href="${auth/logout}" >Ứng cử viên tiềm năng</a></li>-->
-                    <li><a th:href="@{/auth/logout}">Đăng xuất</a></li>
+                    <li><a th:href="@{/logout}">Đăng xuất</a></li>
                 </ul>
-                <li></li>
-                <li class="nav-item cta mr-md-1"><a th:href="@{/recruitment/post}" class="nav-link">Đăng tuyển</a></li>
-                <li class="nav-item cta cta-colored"><a th:href="@{/login}" class="nav-link">Đăng nhập</a></li>
+                <li th:if="${session.account}" class="nav-item"><a th:href="@{/recruitment/post}"
+                                                                   class="nav-link">Đăng tuyển</a></li>
+
+                <li th:if="${session.account}" class="nav-item cta mr-md-1"><a th:href="@{/user/profile}"
+                                                                               class="nav-link">Hồ sơ cá
+                    nhân</a></li>
+
+                <li th:if="${session.account}" class="nav-item cta cta-colored"><a th:href="@{/logout}"
+                                                                                   class="nav-link">Đăng xuất</a></li>
+
+                <li th:if="${session.account == null}" class="nav-item cta cta-colored"><a th:href="@{/login}"
+                                                                                           class="nav-link">Đăng
+                    nhập</a></li>
             </ul>
         </div>
     </div>

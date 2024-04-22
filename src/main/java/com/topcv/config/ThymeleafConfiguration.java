@@ -15,8 +15,8 @@ public class ThymeleafConfiguration {
     @Bean
     public SpringTemplateEngine templateEngine() {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-        templateEngine.setTemplateResolver(thymeleafTemplateResolver());
         templateEngine.setEnableSpringELCompiler(true);
+        templateEngine.setTemplateResolver(thymeleafTemplateResolver());
         return templateEngine;
     }
 

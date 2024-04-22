@@ -12,7 +12,7 @@
 </nav>
 <!-- END nav -->
 
-<div class="hero-wrap img" style="background-image: url(user/assets/images/bg_1.jpg);">
+<div class="hero-wrap img" th:style="'background-image:url(' + @{/resources/images/bg_1.jpg} + ');'">
   <div class="overlay"></div>
   <div class="container">
     <div class="row d-md-flex no-gutters slider-text align-items-center justify-content-center">

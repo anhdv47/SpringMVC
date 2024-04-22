@@ -1,21 +1,21 @@
 package com.topcv.model;
 
 public class Role extends BaseEntity {
-    private String role_name;
+    private String roleName;
 
     public Role() {
     }
 
-    public Role(int id, String created_at, String updated_at, String role_name) {
+    public Role(int id, String created_at, String updated_at, String roleName) {
         super(id, created_at, updated_at);
-        this.role_name = role_name;
+        this.roleName = roleName;
     }
 
-    public String getRole_name() {
-        return role_name;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRole_name(String role_name) {
-        this.role_name = role_name;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 }

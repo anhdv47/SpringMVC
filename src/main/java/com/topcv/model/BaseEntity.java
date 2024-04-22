@@ -2,40 +2,39 @@ package com.topcv.model;
 
 public class BaseEntity {
     private int id;
-    private String created_at;
-    private String updated_at;
+    private String createdAt;
+    private String updatedAt;
+
+    public BaseEntity(int id, String createdAt, String updatedAt) {
+        this.id = id;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 
     public BaseEntity() {
     }
 
-    public BaseEntity(int id, String created_at, String updated_at) {
-        this.id = id;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-    }
-
     public int getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public String getCreated_at() {
-        return this.created_at;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(String created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public String getUpdated_at() {
-        return this.updated_at;
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdated_at(String updated_at) {
-        this.updated_at = updated_at;
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
-
 }

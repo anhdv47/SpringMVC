@@ -4,28 +4,12 @@ public class Account extends BaseEntity {
     private String address;
     private String description;
     private String email;
-    private String full_name;
+    private String fullName;
     private String image;
     private String password;
-    private String phone_number;
+    private String phoneNumber;
     private Integer status;
-    private Integer role_id;
-
-    public Account() {
-    }
-
-    public Account(int id, String created_at, String updated_at, String address, String description, String email, String full_name, String image, String password, String phone_number, int status, int role_id) {
-        super(id, created_at, updated_at);
-        this.address = address;
-        this.description = description;
-        this.email = email;
-        this.full_name = full_name;
-        this.image = image;
-        this.password = password;
-        this.phone_number = phone_number;
-        this.status = status;
-        this.role_id = role_id;
-    }
+    private Integer roleId;
 
     public String getAddress() {
         return address;
@@ -51,12 +35,12 @@ public class Account extends BaseEntity {
         this.email = email;
     }
 
-    public String getFull_name() {
-        return full_name;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFull_name(String full_name) {
-        this.full_name = full_name;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getImage() {
@@ -75,27 +59,27 @@ public class Account extends BaseEntity {
         this.password = password;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
-    public int getRole_id() {
-        return role_id;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setRole_id(int role_id) {
-        this.role_id = role_id;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 }

@@ -11,11 +11,4 @@ public class HomeController {
     public ModelAndView home() {
         return new ModelAndView("home");
     }
-
-    //    @GetMapping("/")
-    //    public String testModel(Model model, ModelMap modelMap) {
-    //        model.addAttribute("model", "Hello Model");
-    //        modelMap.addAttribute("modelMap", "Hello modelMap");
-    //        return "login";
-    //    }
 }
