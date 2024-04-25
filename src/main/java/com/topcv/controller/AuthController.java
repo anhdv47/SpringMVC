@@ -1,9 +1,6 @@
 package com.topcv.controller;
 
-import com.topcv.model.Account;
-import com.topcv.model.Login;
-import com.topcv.model.Register;
-import com.topcv.model.ResponseMessage;
+import com.topcv.model.*;
 import com.topcv.repository.IUserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +8,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 
@@ -26,7 +22,6 @@ public class AuthController {
 
     @GetMapping("/login")
     public String login(ModelMap modelMap) {
-        // phải khởi tạo ở đây vì thymeleaf sẽ không nhận được giá trị từ modelMap
         modelMap.addAttribute("register", new Register());
         return "login";
     }
@@ -45,6 +40,13 @@ public class AuthController {
         model.addAttribute("register", new Register());
         if (account != null) {
             session.setAttribute("account", account);
+            if (account.getRoleId() == 2) {
+                Company company = IUserRepository.getCompanyProfile(account.getId());
+                if (company == null) {
+                    company = new Company();
+                }
+                session.setAttribute("sessionCompany", company);
+            }
             return "redirect:/";
         } else {
             responseMessage.SetError("Email hoặc mật khẩu không đúng.");

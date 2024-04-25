@@ -1,17 +1,58 @@
 package com.topcv.model;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
+
 public class Recruitment extends BaseEntity {
     private String address;
     private String description;
     private String experience;
-    private int quantity;
+    private Integer quantity;
     private String rank;
     private String salary;
-    private int status;
+    private Integer status;
     private String title;
-    private int viewCount;
-    private int companyId;
-    private int categoryId;
+    private Integer viewCount;
+    private Integer companyId;
+    private Integer categoryId;
+    private Company Company;
+    private Category category;
+    private String type;
+    private Date deadline;
+
+    public Date getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(String deadline) throws ParseException {
+        DateFormat dateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        this.deadline = dateFormat.parse(deadline);
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Company getCompany() {
+        return Company;
+    }
+
+    public void setCompany(Company company) {
+        this.Company = company;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     public String getAddress() {
         return address;
@@ -37,11 +78,11 @@ public class Recruitment extends BaseEntity {
         this.experience = experience;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
@@ -61,11 +102,11 @@ public class Recruitment extends BaseEntity {
         this.salary = salary;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -77,27 +118,27 @@ public class Recruitment extends BaseEntity {
         this.title = title;
     }
 
-    public int getViewCount() {
+    public Integer getViewCount() {
         return viewCount;
     }
 
-    public void setViewCount(int viewCount) {
+    public void setViewCount(Integer viewCount) {
         this.viewCount = viewCount;
     }
 
-    public int getCompanyId() {
+    public Integer getCompanyId() {
         return companyId;
     }
 
-    public void setCompanyId(int companyId) {
+    public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
     }
 
-    public int getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 }

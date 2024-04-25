@@ -42,6 +42,10 @@ public class ResponseMessage {
         this.success = success;
     }
 
+    public String getURLMessage() {
+        return "success= " + success + "&message= " + message;
+    }
+
     public String getSystemMessage() {
         return systemMessage;
     }

@@ -8,4 +8,12 @@ public class CommonEnum {
             return this.ordinal();
         }
     }
+
+    public enum CompanyStatus {
+        INACTIVE, ACTIVE;
+
+        public int toInt() {
+            return this.ordinal();
+        }
+    }
 }

@@ -8,26 +8,9 @@ public class Company extends BaseEntity {
     private String name;
     private String phoneNumber;
     private int status;
+    private int accountId;
 
-    public Company(String address, String description, String email, String logo, String name, String phoneNumber, int status) {
-        this.address = address;
-        this.description = description;
-        this.email = email;
-        this.logo = logo;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.status = status;
-    }
-
-    public Company(int id, String created_at, String updated_at, String address, String description, String email, String logo, String name, String phoneNumber, int status) {
-        super(id, created_at, updated_at);
-        this.address = address;
-        this.description = description;
-        this.email = email;
-        this.logo = logo;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.status = status;
+    public Company() {
     }
 
     public String getAddress() {
@@ -84,5 +67,13 @@ public class Company extends BaseEntity {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
     }
 }

@@ -1,9 +1,6 @@
 package com.topcv.repository;
 
-import com.topcv.model.Account;
-import com.topcv.model.Cv;
-import com.topcv.model.Login;
-import com.topcv.model.Register;
+import com.topcv.model.*;
 
 public interface IUserRepository {
 
@@ -18,4 +15,16 @@ public interface IUserRepository {
     Cv getCv(int accountId);
 
     int updateProfile(Account account);
+
+    Company getCompanyProfile(int accountId);
+
+    boolean updateCompanyLogo(int i, String base64Image);
+
+    int updateCompany(Company company);
+
+    boolean isCompanyExist(int accountId);
+
+    int registerCompany(Company company);
+
+    boolean updateAvatar(int i, String base64Image);
 }
