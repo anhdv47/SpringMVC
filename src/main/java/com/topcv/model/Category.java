@@ -6,11 +6,6 @@ public class Category extends BaseEntity {
     public Category() {
     }
 
-    public Category(int id, String created_at, String updated_at, String name) {
-        super(id, created_at, updated_at);
-        this.name = name;
-    }
-
     public String getName() {
         return name;
     }

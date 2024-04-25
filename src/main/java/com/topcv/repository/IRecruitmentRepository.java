@@ -2,6 +2,7 @@ package com.topcv.repository;
 
 import com.topcv.model.Category;
 import com.topcv.model.Company;
+import com.topcv.model.PagingModel;
 import com.topcv.model.Recruitment;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public interface IRecruitmentRepository {
 
     int update(Recruitment recruitment);
 
-    List<Recruitment> list(int companyId);
+    PagingModel<Recruitment> list(int companyId, int page, int size);
 
     Company getCompany(int id);
 

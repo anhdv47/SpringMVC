@@ -1,15 +1,13 @@
 package com.topcv.model;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
+
 public class BaseEntity {
     private int id;
-    private String createdAt;
-    private String updatedAt;
-
-    public BaseEntity(int id, String createdAt, String updatedAt) {
-        this.id = id;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
+    private Date createdAt;
+    private Date updatedAt;
 
     public BaseEntity() {
     }
@@ -22,19 +20,31 @@ public class BaseEntity {
         this.id = id;
     }
 
-    public String getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
     public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+        this.createdAt = setDateByString(createdAt);
     }
 
-    public String getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
     public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
+        this.updatedAt = setDateByString(updatedAt);
+    }
+
+    public Date setDateByString(String date) {
+        try {
+            if (date == null || date.isEmpty()) {
+                return null;
+            }
+            DateFormat dateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            return dateFormat.parse(date);
+        } catch (ParseException e) {
+            return null;
+        }
     }
 }

@@ -1,16 +1,14 @@
 package com.topcv.repository;
 
 import com.topcv.enumeration.CommonEnum;
-import com.topcv.model.Account;
-import com.topcv.model.Category;
-import com.topcv.model.Company;
-import com.topcv.model.Recruitment;
+import com.topcv.model.*;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
+import java.awt.print.Pageable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -27,7 +25,7 @@ public class RecruitmentRepository implements IRecruitmentRepository {
     @Nullable
     public Recruitment detail(int id) {
         try {
-            return jdbcTemplate.queryForObject("SELECT * FROM recruitment WHERE id = ?", new BeanPropertyRowMapper<>(Recruitment.class), id);
+            return jdbcTemplate.queryForObject("SELECT\n" + "  r.*\n" + " ,c.name AS companyName\n" + " ,c.logo AS companyLogo\n" + " ,c1.name AS categoryName\n" + "FROM recruitment r\n" + "LEFT JOIN company c\n" + "  ON r.companyId = c.id\n" + "LEFT JOIN category c1\n" + "  ON r.categoryId = c1.id\n" + "WHERE r.id = ?", new BeanPropertyRowMapper<>(Recruitment.class), id);
         } catch (Exception e) {
             return null;
         }
@@ -62,9 +60,16 @@ public class RecruitmentRepository implements IRecruitmentRepository {
 
     @Override
     @Nullable
-    public List<Recruitment> list(int companyId) {
+    public PagingModel<Recruitment> list(int companyId, int page, int size) {
         try {
-            return jdbcTemplate.query("select * from recruitment where companyId = ?", new BeanPropertyRowMapper<>(Recruitment.class), companyId);
+            PagingModel<Recruitment> pagingModel = new PagingModel<>();
+            List<Recruitment> recruitments = jdbcTemplate.query("select * FROM recruitment r WHERE r.companyId = ? order BY r.id DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY;", new BeanPropertyRowMapper<>(Recruitment.class), companyId, (page - 1) * size, size);
+            int totalItem = jdbcTemplate.queryForObject("select count(*) from recruitment where companyId = ?", Integer.class, companyId);
+            pagingModel.setData(recruitments);
+            pagingModel.setTotalItem(totalItem);
+            pagingModel.setTotalPage((int) Math.ceil((double) totalItem / size));
+            pagingModel.setCurrentPage(page);
+            return pagingModel;
         } catch (Exception e) {
             return null;
         }

@@ -35,7 +35,7 @@
         <div class="row">
             <div class="col-lg-12 pr-lg-4">
                 <div class="row">
-                    <th:block th:if="${recruitments.size() == 0}">
+                    <th:block th:if="${recruitments.totalItem == 0}">
                         <div class="row form-group">
                             <label for="company-website-tw d-block">Danh sách bài tuyển dụng </label> <br>
                             <div class="col-md-12">
@@ -44,7 +44,7 @@
                         </div>
 
                     </th:block>
-                    <th:block th:if="${recruitments.size() > 0}" th:each="recruitment : ${recruitments}">
+                    <th:block th:if="${recruitments.totalItem > 0}" th:each="recruitment : ${recruitments.data}">
                         <div class="col-md-12 ">
                             <div class="job-post-item p-4 d-block d-lg-flex align-items-center">
                                 <div class="one-third mb-4 mb-md-0">
@@ -55,8 +55,8 @@
                                         </h2>
                                     </div>
                                     <div class="job-post-item-body d-block d-md-flex">
-                                        <div class="mr-3"><span class="icon-layers"></span> <a href="#">Tên công ty ở
-                                            đây</a></div>
+                                        <div class="mr-3"><span class="icon-layers"></span> <a
+                                                th:text="${session.company.name}"></a></div>
                                         <div><span class="icon-my_location"></span> <span
                                                 th:text="${recruitment.address}"></span></div>
                                     </div>
@@ -64,7 +64,7 @@
 
                                 <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0"
                                      style="width: 330px !important;">
-                                    <a th:href="@{'/recruitment/detail/' + ${recruitment.id}}"
+                                    <a th:href="@{'/recruitment/detail-post/' + ${recruitment.id}}"
                                        class="btn btn-primary py-2 ml-2">Xem chi tiết</a>
                                     <a th:href="@{'/recruitment/detail/' + ${recruitment.id}}"
                                        class="btn btn-warning py-2 ml-2">Cập nhật</a>
@@ -80,13 +80,20 @@
                 <div class="row mt-5">
                     <div class="col text-center">
                         <div class="block-27">
-                            <!--                            <ul>-->
-                            <!--                                <li th:if="${numberPage>0}"><a th:href="@{/user/list-post(page = ${list.number - 1})}">&lt;</a></li>-->
-                            <!--                                <th:block th:each="recruitment,state  : ${recruitmentList}">-->
-                            <!--                                        <li th:class="${numberPage == state.index  ? 'active' : null }"><a th:href="@{/user/list-post(page = ${state.index})}" th:text="${state.index + 1}"></a></li>-->
-                            <!--                                </th:block>-->
-                            <!--                                <li th:if="${numberPage<list.totalPages - 1}"><a th:href="@{/user/list-post(page = ${list.number + 1})}">&gt;</a></li>-->
-                            <!--                            </ul>-->
+                            <ul>
+                                <li th:if="${recruitments.currentPage > 1}"><a
+                                        th:href="@{/recruitment/list(page = ${recruitments.currentPage - 1})}">&lt;</a>
+                                </li>
+                                <th:block
+                                        th:each="recruitment, state  : ${#numbers.sequence( 1, recruitments.totalPage, 1)}">
+                                    <li th:class="${recruitments.currentPage == state.index + 1  ? 'active' : null }"><a
+                                            th:href="@{/recruitment/list(page = ${state.index + 1})}"
+                                            th:text="${state.index + 1}"></a></li>
+                                </th:block>
+                                <li th:if="${recruitments.currentPage < recruitments.totalPage - 1}"><a
+                                        th:href="@{/recruitment/list(page = ${recruitments.currentPage + 1})}">&gt;</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>

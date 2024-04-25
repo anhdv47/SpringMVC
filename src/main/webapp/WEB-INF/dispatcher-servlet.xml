@@ -33,8 +33,9 @@
 
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/recruitment/**"/>
-            <mvc:mapping path="/user/**"/>
+            <!--            <mvc:mapping path="/recruitment/**"/>-->
+            <!--            <mvc:mapping path="/user/**"/>-->
+            <mvc:mapping path="/**"/>
             <bean class="com.topcv.interceptor.AuthInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

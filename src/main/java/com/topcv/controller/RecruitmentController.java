@@ -49,10 +49,10 @@ public class RecruitmentController {
     }
 
     @GetMapping("/list")
-    public String list(Model model) {
-        List<Recruitment> recruitments = IRecruitmentRepository.list(companyId);
-        if (recruitments == null) {
-            recruitments = new ArrayList<>();
+    public String list(Model model, @RequestParam(value = "page", defaultValue = "1") int page, @RequestParam(value = "size", defaultValue = "5") int size) {
+        PagingModel<Recruitment> recruitments = IRecruitmentRepository.list(companyId, page, size);
+        if (recruitments.getData() == null) {
+            recruitments.setData(new ArrayList<>());
         }
         model.addAttribute("recruitments", recruitments);
         return "post-list";
@@ -83,6 +83,18 @@ public class RecruitmentController {
         model.addAttribute("recruitment", recruitment);
         processRecruitment(model);
         return "post-job";
+    }
+
+    @GetMapping("/detail-post/{id}")
+    public String jobDetail(@PathVariable("id") int id, Model model) {
+        Recruitment recruitment = IRecruitmentRepository.detail(id);
+        if (recruitment == null) {
+            return "redirect:/recruitment/list";
+        }
+        recruitment.setCompanyId(companyId);
+        model.addAttribute("recruitment", recruitment);
+        processRecruitment(model);
+        return "detail-post";
     }
 
     @PostMapping("/add")
