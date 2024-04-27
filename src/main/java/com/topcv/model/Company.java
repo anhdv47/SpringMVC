@@ -9,8 +9,26 @@ public class Company extends BaseEntity {
     private String phoneNumber;
     private int status;
     private int accountId;
+    private Integer totalApply;
+    private  Integer applyPosition;
 
     public Company() {
+    }
+
+    public int getTotalApply() {
+        return totalApply;
+    }
+
+    public void setTotalApply(Integer totalApply) {
+        this.totalApply = totalApply;
+    }
+
+    public Integer getApplyPosition() {
+        return applyPosition;
+    }
+
+    public void setApplyPosition(Integer applyPosition) {
+        this.applyPosition = applyPosition;
     }
 
     public String getAddress() {

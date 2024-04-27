@@ -19,7 +19,20 @@ public class CategoryRepository implements ICategoryRepository {
     @Override
     public List<Category> GetAll() {
         try {
-            return jdbcTemplate.query("select * from category", new BeanPropertyRowMapper<>(Category.class));
+            String sql = "SELECT\n" +
+                    "  c.id\n" +
+                    " ,c.name\n" +
+                    " ,c.createdAt\n" +
+                    " ,c.updatedAt\n" +
+                    " ,COUNT(r.id) AS numberChoose\n" +
+                    "FROM category c\n" +
+                    "LEFT JOIN recruitment r\n" +
+                    "  ON c.id = r.categoryId\n" +
+                    "GROUP BY c.id\n" +
+                    "        ,c.name\n" +
+                    "        ,c.createdAt\n" +
+                    "        ,c.updatedAt\n";
+            return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Category.class));
         } catch (Exception e) {
             e.printStackTrace();
             return null;

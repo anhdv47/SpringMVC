@@ -11,20 +11,8 @@
      class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 
 </nav>
-<!-- END nav -->
-<div th:if="${msg_register_success}" class="toast" data-delay="2000"
-     style="position:fixed;top: 100PX; right: 10PX;z-index: 2000;width: 300px">
-    <script>
-        swal({
-            title: 'Đăng nhập thành công!',
-            /* text: 'Redirecting...', */
-            icon: 'success',
-            timer: 3000,
-            buttons: true,
-            type: 'success'
-        })
-    </script>
-</div>
+
+<!--Con số ấn tượng-->
 <div class="hero-wrap img" th:style="'background-image:url(' + @{/resources/images/bg_1.jpg} + ');'">
     <div class="overlay"></div>
     <div class="container">
@@ -43,7 +31,7 @@
                                         </div>
                                         <div class="desc text-left">
                                             <strong class="number" data-number="46"
-                                                    th:text="${numberCandidate}"></strong>
+                                                    th:text="${homeCount.numberCandidate}"></strong>
                                             <span>Ứng cử viên</span>
                                         </div>
                                     </div>
@@ -57,7 +45,7 @@
                                         </div>
                                         <div class="desc text-left">
                                             <strong class="number" data-number="450"
-                                                    th:text="${numberCompany}"></strong>
+                                                    th:text="${homeCount.numberCompany}"></strong>
                                             <span>Công ty</span>
                                         </div>
                                     </div>
@@ -71,7 +59,7 @@
                                         </div>
                                         <div class="desc text-left">
                                             <strong class="number" data-number="80000"
-                                                    th:text="${numberRecruitment}"></strong>
+                                                    th:text="${homeCount.numberRecruitment}"></strong>
                                             <span>Tuyển dụng</span>
                                         </div>
                                     </div>
@@ -191,10 +179,10 @@
     </div>
 </div>
 
+<!--Top Danh Mục-->
 <section class="ftco-section">
     <div class="container">
         <div class="row justify-content-center mb-5">
-
             <div style="display: block" class="col-md-7 heading-section text-center">
                 <span class="subheading">Danh mục công việc</span>
                 <h2 class="mb-0">Top Danh Mục</h2>
@@ -259,6 +247,7 @@
     </div>
 </section>
 
+<!--Các bài đăng về việc làm nổi bật-->
 <section class="ftco-section bg-light">
     <div class="container">
         <div class="row">
@@ -283,7 +272,7 @@
                                     </div>
                                     <div class="job-post-item-body d-block d-md-flex">
                                         <div class="mr-3"><span class="icon-layers"></span> <a href="#"
-                                                                                               th:text="${recruitment.Company.nameCompany}"></a>
+                                                                                               th:text="${recruitment.companyName}"></a>
                                         </div>
                                         <div><span class="icon-my_location"></span> <span
                                                 th:text="${recruitment.address}"></span></div>
@@ -397,15 +386,19 @@
                         <h2 class="mb-4">Công ty nổi bật</h2>
                     </div>
                 </div>
-                <th:block th:each="companies : ${companies}">
+                <th:block th:each="company : ${companies}">
                     <div class="sidebar-box">
                         <div class="">
-                            <a th:href="${'/user/detail-company/'}+${companies[0]}" class="company-wrap"><img
-                                    th:src="${companies[2]}" class="img-fluid" alt="Colorlib Free Template"></a>
+                            <a th:href="${'/user/detail-company/'}+${company.id}" class="company-wrap"><img width="200" height="200"
+                                    th:src="${company.logo != null ? 'data:image/png;base64,' + company.logo : 'https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg'}"
+                                    alt="" class="img-fluid">
+                            </a>
                             <div class="text p-3">
-                                <h3><a th:href="${'/user/detail-company/'}+${companies[0]}"
-                                       th:text="${companies[1]}"></a></h3>
-                                <p><span class="number" style="color: black" th:text="${companies[3]}"></span> <span>Vị trí ứng tuyển</span>
+                                <h3><a th:href="${'/user/detail-company/'}+${company.id}"
+                                       th:text="${company.name}"></a></h3>
+                                <p>
+                                    <span class="number" style="color: black" th:text="${company.applyPosition}"></span>
+                                    <span>Vị trí ứng tuyển</span>
                                 </p>
                             </div>
                         </div>
