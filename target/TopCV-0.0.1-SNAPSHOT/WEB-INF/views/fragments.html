@@ -64,22 +64,21 @@
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active"><a th:href="@{/}" class="nav-link">Trang chủ</a></li>
-                <li class="nav-item"><a th:href="@{/}" class="nav-link">Công việc</a></li>
-                <li class="nav-item"><a th:href="@{/}" class="nav-link">Ứng cử viên</a></li>
+                <li class="nav-item"><a th:href="@{/list-job}" class="nav-link">Công việc</a></li>
+                <li th:if="${session.company}" class="nav-item"><a th:href="@{/employer/list-cv}" class="nav-link">Ứng cử viên</a></li>
                 <li th:if="${session.account}" class="nav-item">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${session.account.fullName}">
                     </a>
                     <ul class="dropdown">
                         <li><a th:href="@{/user/profile}">Hồ Sơ</a></li>
-                        <li><a th:href="@{/save-job/get-list}">Công việc đã lưu</a></li>
-                        <li><a th:href="@{/user/list-post}">Danh sách bài đăng</a></li>
-                        <li><a th:href="@{/user/get-list-apply}">Công việc đã ứng tuyển</a></li>
-                        <li><a th:href="@{/user/get-list-company}">Công ty đã theo dõi</a></li>
+                        <li th:if="${session.company == null}"><a th:href="@{/user/get-list-save-job}">Công việc đã lưu</a></li>
+                        <li th:if="${session.company}"><a th:href="@{/recruitment/list}">Danh sách bài đăng</a></li>
+                        <li th:if="${session.company == null}"><a th:href="@{/user/get-list-apply}">Công việc đã ứng tuyển</a></li>
                         <li><a th:href="@{/logout}">Đăng xuất</a></li>
                     </ul>
                 </li>
-                <li th:if="${session.account}" class="nav-item cta mr-md-1"><a th:href="@{/recruitment/add}"
+                <li th:if="${session.company}" class="nav-item cta mr-md-1"><a th:href="@{/recruitment/add}"
                                                                    class="nav-link">Đăng tuyển</a></li>
 
                 <li th:if="${session.account == null}" class="nav-item cta cta-colored"><a th:href="@{/login}"

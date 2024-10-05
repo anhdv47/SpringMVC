@@ -67,11 +67,10 @@
                     <li><a href="/save-job/get-list">Công việc đã lưu</a></li>
                     <li><a href="/user/list-post">Danh sách bài đăng</a></li>
                     <li><a href="/user/get-list-apply">Công việc đã ứng tuyển</a></li>
-                    <li><a href="/user/get-list-company">Công ty đã theo dõi</a></li>
                     <li><a href="/auth/logout">Đăng xuất</a></li>
                 </ul>
                 <li></li>
-                <li class="nav-item cta mr-md-1"><a th:href="@{/recruitment/add}" class="nav-link">Đăng tuyển</a></li>
+                <li class="nav-item cta mr-md-1"><a th:href="@{/recruitment/add}" class="nav-link" th:if="${session.company != null}">Đăng tuyển</a></li>
                 <li class="nav-item cta cta-colored"><a href="login" class="nav-link">Đăng nhập</a></li>
             </ul>
         </div>
@@ -117,7 +116,7 @@
             <div class="col-lg-4">
                 <div class="row">
                     <div th:if="${session.user}" class="col-6">
-                        <a th:if="${session.user.role.id == 1}" onclick="follow()"
+                        <a th:if="${session.account.getRoleId() == 1}" onclick="follow()"
                            class="btn btn-block btn-light btn-md"><span class="icon-heart-o mr-2 text-danger"></span>Theo
                             dõi</a>
                     </div>

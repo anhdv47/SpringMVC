@@ -14,7 +14,7 @@
 
 </nav>
 <!-- END nav -->
-<!-- th:if="${session.user.role.id == 2 }" -->
+<!-- th:if="${session.account.getRoleId() == 2 }" -->
 <div class="hero-wrap hero-wrap-2" th:style="'background-image:url(' + @{/resources/images/bg_1.jpg} + ');'"
      data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
@@ -29,7 +29,7 @@
     </div>
 </div>
 
-<!-- th:if="${session.user.role.id == 2 }" -->
+<!-- th:if="${session.account.getRoleId() == 2 }" -->
 <section class="ftco-section bg-light">
     <div class="container">
         <div class="row">
@@ -42,7 +42,6 @@
                                 <a th:href="@{/recruitment/add}" class="btn px-4 btn-primary text-white">Đăng tuyển</a>
                             </div>
                         </div>
-
                     </th:block>
                     <th:block th:if="${recruitments.totalItem > 0}" th:each="recruitment : ${recruitments.data}">
                         <div class="col-md-12 ">
@@ -50,8 +49,8 @@
                                 <div class="one-third mb-4 mb-md-0">
                                     <div class="job-post-item-header align-items-center">
                                         <span class="subadge" th:text="${recruitment.type}"></span>
-                                        <h2 class="mr-3 text-black"><a th:text="${recruitment.title}"
-                                                                       th:href="${'/recruitment/detail/'} +${recruitment.id}"></a>
+                                        <h2 class="mr-3 mb-0 text-black"><a th:text="${recruitment.title}"
+                                                                       th:href="@{/recruitment/detail-post/{id}(id=${recruitment.id})}"></a>
                                         </h2>
                                     </div>
                                     <div class="job-post-item-body d-block d-md-flex">
@@ -60,18 +59,31 @@
                                         <div><span class="icon-my_location"></span> <span
                                                 th:text="${recruitment.address}"></span></div>
                                     </div>
+                                    <div class="job-post-item-body d-block d-md-flex">
+                                        <div class="mr-3">Ngày đăng: <span th:text="${#dates.format(recruitment.createdAt, 'dd/MM/yyyy HH:mm')}"></span>
+                                        </div>
+                                    </div>
                                 </div>
-
-                                <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0"
-                                     style="width: 330px !important;">
-                                    <a th:href="@{'/recruitment/detail-post/' + ${recruitment.id}}"
-                                       class="btn btn-primary py-2 ml-2">Xem chi tiết</a>
-                                    <a th:href="@{'/recruitment/detail/' + ${recruitment.id}}"
-                                       class="btn btn-warning py-2 ml-2">Cập nhật</a>
-                                    <a class="btn btn-danger py-2 ml-2" th:data-id="${recruitment.id}"
-                                       th:data-url="@{/recruitment/delete/}"
-                                       th:data-action="delete"
-                                       th:data-name="${recruitment.title}">Xóa</a>
+                                <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
+                                    <div class="dropdown-action">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            Thao tác
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item"
+                                                th:href="@{/recruitment/detail-post/{id}(id=${recruitment.id})}">Xem
+                                                chi tiết</a>
+                                            <a class="dropdown-item"
+                                                th:href="@{/recruitment/detail/{id}(id=${recruitment.id})}">Cập
+                                                nhật</a>
+                                            <a class="dropdown-item" th:data-id="${recruitment.id}"
+                                                href="javascript:void(0);"
+                                                th:data-url="@{/recruitment/delete/}" th:data-action="delete"
+                                                th:data-name="${recruitment.title}">Xóa</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div><!-- end -->
@@ -109,7 +121,7 @@
 <script>
     $(document).ready(function () {
         ClassicEditor.create(document.querySelector('#editorN'));
-        $('.btn').click(function () {
+        $('.dropdown-item').click(function () {
             let id = $(this).data('id'),
                 url = $(this).data('url'),
                 name = $(this).data('name'),

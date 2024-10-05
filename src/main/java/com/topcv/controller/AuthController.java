@@ -1,7 +1,9 @@
 package com.topcv.controller;
 
+import com.topcv.enumeration.CommonEnum;
 import com.topcv.model.*;
 import com.topcv.repository.IUserRepository;
+import com.topcv.util.UserContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -40,12 +42,14 @@ public class AuthController {
         model.addAttribute("register", new Register());
         if (account != null) {
             session.setAttribute("account", account);
-            if (account.getRoleId() == 2) {
+            UserContext.setCurrentUser(account);
+            if (account.getRoleId() == CommonEnum.AccountRole.COMPANY.toInt()) {
                 Company company = IUserRepository.getCompanyProfile(account.getId());
-                if (company == null) {
-                    company = new Company();
+                if (company != null) {
+                    UserContext.setCurrentCompany(company);
+                    session.setAttribute("sessionCompany", company);
+                    session.setAttribute("company", company);
                 }
-                session.setAttribute("sessionCompany", company);
             }
             return "redirect:/";
         } else {

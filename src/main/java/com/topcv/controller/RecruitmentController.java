@@ -1,19 +1,19 @@
 package com.topcv.controller;
 
-import com.topcv.model.*;
+import com.topcv.model.Category;
+import com.topcv.model.PagingModel;
+import com.topcv.model.Recruitment;
 import com.topcv.repository.ICategoryRepository;
 import com.topcv.repository.IRecruitmentRepository;
 import com.topcv.repository.IUserRepository;
+import com.topcv.util.UserContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,10 +26,8 @@ public class RecruitmentController {
     final HttpSession Session;
     final HttpServletResponse Response;
 
-    int userId = 1;
-    int companyId = 1;
-
-    public RecruitmentController(IRecruitmentRepository iRecruitmentRepository, IUserRepository iUserRepository, ICategoryRepository iCategoryRepository, HttpSession session, HttpServletResponse response) {
+    public RecruitmentController(IRecruitmentRepository iRecruitmentRepository, IUserRepository iUserRepository,
+                                 ICategoryRepository iCategoryRepository, HttpSession session, HttpServletResponse response) {
         IRecruitmentRepository = iRecruitmentRepository;
         IUserRepository = iUserRepository;
         ICategoryRepository = iCategoryRepository;
@@ -37,20 +35,11 @@ public class RecruitmentController {
         Response = response;
     }
 
-    private boolean isLogged() {
-        Account account = (Account) Session.getAttribute("account");
-        Company company = (Company) Session.getAttribute("sessionCompany");
-        if (account == null) {
-            return false;
-        }
-        companyId = company.getId();
-        userId = account.getId();
-        return true;
-    }
-
     @GetMapping("/list")
-    public String list(Model model, @RequestParam(value = "page", defaultValue = "1") int page, @RequestParam(value = "size", defaultValue = "5") int size) {
-        PagingModel<Recruitment> recruitments = IRecruitmentRepository.list(companyId, page, size);
+    public String list(Model model, @RequestParam(value = "page", defaultValue = "1") int page,
+                       @RequestParam(value = "size", defaultValue = "5") int size) {
+        PagingModel<Recruitment> recruitments = IRecruitmentRepository.list(UserContext.getCurrentCompany().getId(),
+                page, size);
         if (recruitments.getData() == null) {
             recruitments.setData(new ArrayList<>());
         }
@@ -79,7 +68,7 @@ public class RecruitmentController {
         if (recruitment == null) {
             return "redirect:/recruitment/list";
         }
-        recruitment.setCompanyId(companyId);
+        recruitment.setCompanyId(UserContext.getCurrentCompany().getId());
         model.addAttribute("recruitment", recruitment);
         processRecruitment(model);
         return "post-job";
@@ -91,7 +80,6 @@ public class RecruitmentController {
         if (recruitment == null) {
             return "redirect:/recruitment/list";
         }
-        recruitment.setCompanyId(companyId);
         model.addAttribute("recruitment", recruitment);
         processRecruitment(model);
         return "detail-post";
@@ -99,7 +87,7 @@ public class RecruitmentController {
 
     @PostMapping("/add")
     public ResponseEntity<String> add(Recruitment recruitment, Model model) {
-        recruitment.setCompanyId(companyId);
+        recruitment.setCompanyId(UserContext.getCurrentCompany().getId());
         int rowAffected = IRecruitmentRepository.add(recruitment);
         if (rowAffected > 0) {
             return ResponseEntity.ok().body("Thêm tin tuyển dụng thành công.");
@@ -110,7 +98,8 @@ public class RecruitmentController {
 
     @PostMapping("/edit")
     public ResponseEntity<String> updateProfile(Recruitment recruitment, Model model) {
-        recruitment.setCompanyId(companyId);
+        model.addAttribute("Content-Type", "text/html; charset=UTF-8");
+        recruitment.setCompanyId(UserContext.getCurrentCompany().getId());
         int rowAffected = IRecruitmentRepository.update(recruitment);
         if (rowAffected > 0) {
             return ResponseEntity.ok().body("Cập nhật thông tin thành công.");
@@ -121,7 +110,7 @@ public class RecruitmentController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") int id) {
-        int rowAffected = IRecruitmentRepository.delete(id, companyId);
+        int rowAffected = IRecruitmentRepository.delete(id, UserContext.getCurrentCompany().getId());
         if (rowAffected > 0) {
             return ResponseEntity.ok().body("Xóa tin tuyển dụng thành công.");
         } else {

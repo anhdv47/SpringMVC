@@ -10,7 +10,7 @@ public class Company extends BaseEntity {
     private int status;
     private int accountId;
     private Integer totalApply;
-    private  Integer applyPosition;
+    private Integer applyPosition;
 
     public Company() {
     }

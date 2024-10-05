@@ -16,4 +16,30 @@ public class CommonEnum {
             return this.ordinal();
         }
     }
+
+    public enum AccountRole {
+        None,
+        USER,
+        COMPANY;
+
+        public int toInt() {
+            return this.ordinal();
+        }
+    }
+
+    public enum CvStatus {
+        INACTIVE, ACTIVE;
+
+        public int toInt() {
+            return this.ordinal();
+        }
+    }
+
+    public enum ApplyJobStatus {
+        PENDING, ACCEPTED, REJECTED;
+
+        public int toInt() {
+            return this.ordinal();
+        }
+    }
 }

@@ -675,7 +675,7 @@ h1, h2, h3, h4, h5,
 
 .job-post-item{
 	// border: 1px solid lighten($black,94%);
-	z-index: 0;
+	z-index: auto;
 	background: $white;
 	position: relative;
 	width: 100%;

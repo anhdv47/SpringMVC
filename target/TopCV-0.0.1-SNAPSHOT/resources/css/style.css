@@ -8663,7 +8663,7 @@ h1, h2, h3, h4, h5,
           color: #fdab44; }
 
 .job-post-item {
-  z-index: 0;
+  z-index: auto;
   background: #fff;
   position: relative;
   width: 100%;

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments :: html_head">
+    <title>Skillhunt - Free Bootstrap 4 Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+
+<nav th:replace="fragments :: header_menu" class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+</nav>
+
+<div class="hero-wrap hero-wrap-2" th:style="'background-image:url(' + @{/resources/images/bg_1.jpg} + ');'" data-stellar-background-ratio="0.5" th:if="${session.account.getRoleId() == 2 }">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-start">
+            <div class="col-md-12 text-center mb-5">
+                <p class="breadcrumbs mb-0"><span class="mr-3"><a href="/">Trang chủ <i class="ion-ios-arrow-forward"></i></a></span>Ứng cử viên <span></span></p>
+                <h1 class="mb-3 bread">Danh sách các ứng tuyển</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="ftco-section bg-light" th:if="${session.account.getRoleId() == 2 }">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 pr-lg-4">
+                <div class="row">
+                    <th:block th:if="${applyJobs.totalItem == 0}">
+                        <h3 class="text-center col-12">Chưa có ứng viên nào ứng tuyển</h3>
+                    </th:block>
+                    <th:block th:if="${applyJobs.totalItem > 0}" th:each="job : ${applyJobs.data}">
+                        <div class="col-md-12 ">
+                            <div class="job-post-item p-4 d-block d-lg-flex align-items-center">
+                                <div class="one-third mb-4 mb-md-0">
+                                    <div class="job-post-item-header align-items-center">
+                                        <span class="subadge" th:text="${job.type}"></span>
+                                        <h2 class="mr-3 mb-0 text-black"><a th:text="${job.title}"
+                                                                            th:href="@{/recruitment/detail-post/{id}(id=${job.id})}"></a>
+                                        </h2>
+                                    </div>
+                                    <div class="job-post-item-body d-block d-md-flex">
+                                        <div><span class="icon-my_location"></span> <span
+                                                th:text="${job.address}"></span></div>
+                                    </div>
+                                    <div class="job-post-item-body d-block">
+                                        <div class="mr-3">Ngày đăng bài: <span th:text="${#dates.format(job.createdAt, 'dd/MM/yyyy HH:mm')}"></span>
+                                        </div>
+                                        <div class="mr-3">Tổng số ứng viên: <span th:text="${job.totalApplied}"></span></div>
+                                    </div>
+                                </div>
+                                <div class="one-forth ml-auto d-flex align-items-center">
+                                    <div class="mr-3">
+                                        <button class="btn btn-primary btn-sm btn-view-applied" th:data-id="${job.id}" th:if="${job.totalApplied > 0}">
+                                            Xem ứng viên
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- end -->
+                    </th:block>
+                </div>
+                <div class="row mt-5">
+                    <div class="col text-center">
+                        <div class="block-27">
+                            <ul>
+                                <li th:if="${applyJobs.currentPage > 1}"><a
+                                        th:href="@{/employer/list-cv(page = ${applyJobs.currentPage - 1})}">&lt;</a>
+                                </li>
+                                <th:block
+                                        th:each="recruitment, state  : ${#numbers.sequence( 1, applyJobs.totalPage, 1)}">
+                                    <li th:class="${applyJobs.currentPage == state.index + 1  ? 'active' : null }"><a
+                                            th:href="@{/employer/list-cv(page = ${state.index + 1})}"
+                                            th:text="${state.index + 1}"></a></li>
+                                </th:block>
+                                <li th:if="${applyJobs.currentPage < applyJobs.totalPage - 1}"><a
+                                        th:href="@{/employer/list-cv(page = ${applyJobs.currentPage + 1})}">&gt;</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<footer th:replace="fragments :: footer" class="ftco-footer ftco-bg-dark ftco-section">
+</footer>
+
+<!-- Modal -->
+<div class="modal fade" id="cvModal" tabindex="-1" role="dialog" aria-labelledby="cvModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cvModalLabel">Danh sách CV ứng tuyển</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Ảnh ứng viên</th>
+                            <th>Tên ứng viên</th>
+                            <th>Email</th>
+                            <th>Số điện thoại</th>
+                            <th>Trạng thái</th>
+                            <th>Note</th>
+                            <th>CV</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cvListBody">
+                        <!-- Dữ liệu sẽ được chèn ở đây -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.btn-view-applied').click(async function () {
+            let id = $(this).data('id');
+
+            // Gọi API lấy danh sách CV
+            let response = await $.ajax({
+                url: `${contextpath}employer/list-cv/${id}`,
+                type: 'GET',
+            });
+
+            // Xử lý phản hồi từ server
+            let cvListBody = $('#cvListBody');
+            cvListBody.empty();  // Xóa các dòng cũ trong bảng
+
+            if (response.length > 0) {
+                response.forEach(cv => {
+                    // Hiển thị trạng thái
+                    let statusText;
+                    switch (cv.status) {
+                        case 0:
+                            statusText = 'Pending';
+                            break;
+                        case 1:
+                            statusText = 'Đã duyệt';
+                            break;
+                        case 2:
+                            statusText = 'Từ chối';
+                            break;
+                        default:
+                            statusText = 'Không xác định';
+                    }
+
+                    // Xử lý ảnh base64
+                    let accountImage = `<img src="data:image/png;base64,${cv.accountImage}" alt="Ảnh ứng viên" style="width: 50px; height: 50px;" />`;
+                    let filePath = cv.cvFilePath;
+                    if (filePath) {
+                        cv.cvFilePath = `${contextpath}employer/download-cv/${cv.id}`;
+                    } else{
+                        cv.cvFilePath = 'javascript:void(0)';
+                    }
+                    let cvRow = `
+                        <tr>
+                            <td>${accountImage}</td>
+                            <td>${cv.accountName}</td>
+                            <td>${cv.accountEmail}</td>
+                            <td>${cv.accountPhone}</td>
+                            <td id="${cv.id}StatusText">${statusText}</td>
+                            <td>${cv.note ? cv.note : 'Không có'}</td>
+                            <td>
+                                <a href="${cv.cvFilePath}" target="_blank">Tải CV</a>
+                            </td>
+                            <td>
+                                <button class="btn btn-success btn-approve btn-sm" data-id="${cv.id}">Duyệt</button>
+                                <button class="btn btn-danger btn-reject btn-sm" data-id="${cv.id}">Từ chối</button>
+                            </td>
+                        </tr>
+                    `;
+                    cvListBody.append(cvRow);
+                });
+            } else {
+                cvListBody.append('<tr><td colspan="8">Không có CV nào</td></tr>');
+            }
+
+            // Hiển thị modal
+            $('#cvModal').modal('show');
+        });
+
+        // Xử lý duyệt CV
+        $(document).on('click', '.btn-approve', async function () {
+            let id = $(this).data('id');
+            let response = await $.ajax({
+                url: `${contextpath}employer/approve-cv/${id}`,
+                type: 'POST',
+            });
+
+            swal({
+                title: response.message,
+                icon: response.success ? 'success' : 'error',
+                buttons: true,
+                type: response.success ? 'success' : 'error'
+            }).then(() => {
+                $(`#${id}StatusText`).text('Đã duyệt');
+            });
+        });
+
+        // Xử lý từ chối CV
+        $(document).on('click', '.btn-reject', async function () {
+            let id = $(this).data('id');
+            let response = await $.ajax({
+                url: `${contextpath}employer/reject-cv/${id}`,
+                type: 'POST',
+            });
+
+            swal({
+                title: response.message,
+                icon: response.success ? 'success' : 'error',
+                buttons: true,
+                type: response.success ? 'success' : 'error'
+            }).then(() => {
+                $(`#${id}StatusText`).text('Từ chối');
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

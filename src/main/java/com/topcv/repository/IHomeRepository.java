@@ -7,6 +7,8 @@ import com.topcv.model.Recruitment;
 
 public interface IHomeRepository {
     HomeCount getHomeCount();
-    PagingModel<Recruitment> getAllRecruitment(int page, int size);
+
+    PagingModel<Recruitment> getAllRecruitment(int page, int size, String title, String type, String address);
+
     PagingModel<Company> getAllCompany(int page, int size);
 }

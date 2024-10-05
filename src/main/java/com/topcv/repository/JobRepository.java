@@ -1,6 +1,5 @@
 package com.topcv.repository;
 
-import com.topcv.model.Account;
 import com.topcv.model.Category;
 import com.topcv.model.Company;
 import com.topcv.model.Recruitment;
@@ -61,7 +60,8 @@ public class JobRepository implements IJobRepository {
     @Override
     public Company getCompany(int id) {
         try {
-            return jdbcTemplate.queryForObject("SELECT * FROM company WHERE id = ?", new BeanPropertyRowMapper<>(Company.class), id);
+            return jdbcTemplate.queryForObject("SELECT * FROM company WHERE id = ?",
+                    new BeanPropertyRowMapper<>(Company.class), id);
         } catch (Exception e) {
             return null;
         }
@@ -70,7 +70,8 @@ public class JobRepository implements IJobRepository {
     @Override
     public Category getCategory(int id) {
         try {
-            return jdbcTemplate.queryForObject("SELECT * FROM category WHERE id = ?", new BeanPropertyRowMapper<>(Category.class), id);
+            return jdbcTemplate.queryForObject("SELECT * FROM category WHERE id = ?",
+                    new BeanPropertyRowMapper<>(Category.class), id);
         } catch (Exception e) {
             return null;
         }

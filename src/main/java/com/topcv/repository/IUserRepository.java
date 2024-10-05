@@ -27,4 +27,10 @@ public interface IUserRepository {
     int registerCompany(Company company);
 
     boolean updateAvatar(int i, String base64Image);
+
+    ResponseMessage saveJob(int recruimentId, int id);
+
+    PagingModel<ApplyJobDTO> getListApply(int id, int page, int size);
+
+    PagingModel<SaveJobDTO> getListSaveJob(int id, int page, int size);
 }

@@ -1,11 +1,6 @@
 package com.topcv.repository;
 
-import com.topcv.model.Category;
-import com.topcv.model.Company;
-import com.topcv.model.PagingModel;
-import com.topcv.model.Recruitment;
-
-import java.util.List;
+import com.topcv.model.*;
 
 public interface IRecruitmentRepository {
     Recruitment detail(int id);
@@ -21,4 +16,10 @@ public interface IRecruitmentRepository {
     Company getCompany(int id);
 
     Category getCategory(int id);
+
+    int applyCv(ApplyJob applyJob);
+
+    ResponseMessage cancelApply(int id, int accountId);
+
+    ResponseMessage deleteSaveJob(int id, int accountId);
 }

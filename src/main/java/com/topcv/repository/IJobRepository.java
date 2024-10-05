@@ -1,6 +1,8 @@
 package com.topcv.repository;
 
-import com.topcv.model.*;
+import com.topcv.model.Category;
+import com.topcv.model.Company;
+import com.topcv.model.Recruitment;
 
 import java.util.List;
 
